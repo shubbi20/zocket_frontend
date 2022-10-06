@@ -1,32 +1,51 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { loginApi } from "../apiUtil/userApi";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export const Login = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("zocketSessionData")) {
+      navigate("/campaign");
+    }
+  }, []);
+
+  const login = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
+    const [data, error] = await loginApi({
+      email,
+      password,
+    });
+    if (data) {
+      const userData = {
+        email: data.email,
+        token: data.token,
+      };
+
+      localStorage.setItem("zocketSessionData", JSON.stringify(userData));
+      message.success("Successfully Logged In");
+      navigate("/campaign");
+      window.location.reload();
+    } else {
+      console.log("error", error);
+      message.error(error);
+    }
+  };
+
   const onFinish = async (values: any) => {
     console.table(values);
-
-    //   const [data, error] = await login(
-    //     values.username.trim().toLowerCase(),
-    //     values.password.trim()
-    //   );
-    //   if (data) {
-    //     const userData = {
-    //       id: data.id,
-    //       role: data.role,
-    //       token: data.token,
-    //       userId: data.userId,
-    //     };
-    //     localStorage.setItem(
-    //       "userApartmentSessionData",
-    //       JSON.stringify(userData)
-    //     );
-    //     message.success("successfully logged In");
-    //     navigate("/home");
-    //     window.location.reload();
-    //   } else {
-    //     message.error(error);
-    //     console.log("error", error);
-    //   }
+    login({
+      email: values.email.toLowerCase().trim(),
+      password: values.password,
+    });
   };
 
   return (
@@ -44,12 +63,12 @@ export const Login = () => {
         initialValues={{
           remember: true,
         }}
-        labelCol={{ span: 7 }}
+        labelCol={{ span: 6 }}
         wrapperCol={{ span: 15 }}
         onFinish={onFinish}
       >
         <Form.Item
-          name="Email"
+          name="email"
           label="Email"
           style={{ marginBottom: "30px" }}
           rules={[

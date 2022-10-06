@@ -2,12 +2,49 @@ import { Button, Form, Input } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
+import { signUpApi } from "../apiUtil/userApi";
 
 const SignUp = () => {
   const navigate = useNavigate();
 
+  const signup = async ({
+    name,
+    password,
+    email,
+  }: {
+    name: string;
+    password: string;
+    email: string;
+  }) => {
+    const [data, error] = await signUpApi({ name, password, email });
+    if (data) {
+      const userData = {
+        email: data.email,
+        token: data.token,
+      };
+
+      localStorage.setItem("zocketSessionData", JSON.stringify(userData));
+      message.success("You Directly Logged In");
+      navigate("/campaign");
+      window.location.reload();
+    } else {
+      if (error.includes("already registered")) {
+        message.info("You have already Registered with us");
+        navigate("/login");
+        return;
+      }
+      console.log("Signup error", error);
+      message.error(error);
+    }
+  };
+
   const onFinish = async (values: any) => {
     console.table(values);
+    await signup({
+      email: values.email.toLowerCase().trim(),
+      name: values.name.toLowerCase().trim(),
+      password: values.password,
+    });
   };
 
   return (
@@ -25,12 +62,12 @@ const SignUp = () => {
         initialValues={{
           remember: true,
         }}
-        labelCol={{ span: 7 }}
+        labelCol={{ span: 6 }}
         wrapperCol={{ span: 15 }}
         onFinish={onFinish}
       >
         <Form.Item
-          name="Name"
+          name="name"
           label="Name"
           style={{ marginBottom: "30px" }}
           rules={[
@@ -61,7 +98,7 @@ const SignUp = () => {
         </Form.Item>
 
         <Form.Item
-          name="Email"
+          name="email"
           label="Email"
           style={{ marginBottom: "30px" }}
           rules={[

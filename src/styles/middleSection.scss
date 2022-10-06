@@ -1,0 +1,31 @@
+.midContent {
+  display: flex;
+  align-items: center;
+  width: 94%;
+  justify-content: space-between;
+  //   border: 2px solid red;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+.buttonStyle {
+  background-color: hsla(216, 100%, 53%, 1);
+  border-radius: 10px;
+}
+
+.fontStyle {
+  font-family: Eudoxus Sans;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  text-align: left;
+}
+
+.fontStyle2 {
+  font-family: Eudoxus Sans;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: left;
+}
