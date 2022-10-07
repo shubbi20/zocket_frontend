@@ -1,6 +1,5 @@
 .mainBox {
   display: flex;
-  // border: 2px solid purple;
   height: 100%;
   background-color: hsl(221, 100%, 95%);
   min-height: 100vh;
@@ -12,3 +11,12 @@
   align-items: center;
   width: 100%;
 }
+
+// .Box {
+//   height: 78%;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: flex-end;
+//   flex-wrap: wrap;
+//   // background-color: palevioletred;
+// }

@@ -1,4 +1,4 @@
-import { Button, Space, Switch, Table, Tag } from "antd";
+import { Space, Switch, Table, Tag } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { useState } from "react";
 import { TrashLogo } from "../../Logos/trashLogo";
@@ -142,6 +142,7 @@ export const CamapaignsTable = () => {
       style={{
         backgroundColor: "#fafafa",
         borderRadius: "10px",
+        margin: "20px",
       }}
     >
       {/* <div style={{ marginBottom: 16 }}>

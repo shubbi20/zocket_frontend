@@ -4,10 +4,13 @@ import LeftMenu from "./leftMenu";
 import { TopMenu } from "./topMenu";
 import "../../styles/campaign.scss";
 import "../../styles/middleSection.scss";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 export const Campaign = () => {
+  const location = useLocation();
+  console.log(location);
+
   return (
     <div className="mainBox">
       <div>
@@ -24,17 +27,19 @@ export const Campaign = () => {
           </div>
 
           <div>
-            <Link to="firstStep">
-              <Button
-                type="primary"
-                icon={<PlusCircleOutlined />}
-                onClick={() => console.log("click")}
-                size="large"
-                className="buttonStyle"
-              >
-                Create new campaign
-              </Button>
-            </Link>
+            {location.pathname === "/campaign" ? (
+              <Link to="firstStep">
+                <Button
+                  type="primary"
+                  icon={<PlusCircleOutlined />}
+                  onClick={() => console.log("click")}
+                  size="large"
+                  className="buttonStyle"
+                >
+                  Create new campaign
+                </Button>
+              </Link>
+            ) : null}
           </div>
         </div>
 

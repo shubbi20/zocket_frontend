@@ -4,18 +4,25 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  //   line-height: 1px;
 }
 
 .mainBox {
   display: flex;
 }
-// style: {
-//   height: "50px",
-//   display: "flex",
-//   flexDirection: "column",
-//   justifyContent: "center",
-//   alignItems: "center",
-//   lineHeight: 1,
-// },
+
+.firstStep {
+  background-color: #fafafa;
+  height: 90%;
+  width: 95%;
+  margin: 0 auto;
+  padding: 0px 15px;
+  border-radius: 10px;
+}
+
+.Box {
+  height: 78%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
