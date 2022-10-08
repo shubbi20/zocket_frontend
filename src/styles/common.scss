@@ -17,6 +17,7 @@
   margin: 0 auto;
   padding: 0px 15px;
   border-radius: 10px;
+  overflow: auto;
 }
 
 .Box {
@@ -25,4 +26,35 @@
   justify-content: space-between;
   align-items: flex-end;
   flex-wrap: wrap;
+}
+
+.dot:after {
+  content: "";
+  border: 10px solid red;
+  border-width: 0 0 0 2px;
+  width: 1px;
+  height: 12vh;
+  margin-top: 90px;
+  position: absolute;
+}
+
+.mainButton {
+  width: 15rem;
+  margin-top: 1rem;
+  margin-right: 20px;
+  float: right;
+  background-color: hsla(216, 100%, 53%, 1);
+  border-radius: 10px;
+}
+
+.settingTimeline {
+  width: 100%;
+  padding-top: 5px;
+  padding-left: 20px;
+}
+
+.timelineItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }

@@ -124,9 +124,9 @@ export const TimelineSteps: React.FC<props> = ({ stepNo }) => {
         // marginTop: "100px",
         height: "50px",
         width: "100%",
-        marginTop: "30px",
+        marginTop: "22px",
         padding: "0px 35px",
-        marginBottom: "25px",
+        marginBottom: "20px",
       }}
     >
       <div

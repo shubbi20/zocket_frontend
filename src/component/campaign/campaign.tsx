@@ -6,10 +6,16 @@ import "../../styles/campaign.scss";
 import "../../styles/middleSection.scss";
 import { Outlet, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export const Campaign = () => {
   const location = useLocation();
-  console.log(location);
+  useEffect(() => {
+    // console.log(location);
+    if (localStorage.getItem("zocketCache")) {
+      localStorage.removeItem("zocketCache");
+    }
+  }, []);
 
   return (
     <div className="mainBox">

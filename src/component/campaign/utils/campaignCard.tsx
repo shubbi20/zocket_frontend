@@ -1,32 +1,48 @@
 import "../../../styles/campaign.scss";
+import { PlatformInterface } from "../createProduct/firstStep";
+import { chooseData } from "./interface";
 
 interface Props {
   childComp: React.ReactNode;
   mainHeading: string;
-  statement: string;
+  statement?: string;
+  price?: number;
+  plat: chooseData | undefined;
+  choosePlatform: (platformChoosen: chooseData) => void;
+
+  app?: string;
 }
 
 export const CampaignCard: React.FC<Props> = ({
   childComp,
   mainHeading,
   statement,
+  plat,
+  choosePlatform,
+  app,
+  price,
 }) => {
+  const handleClick = () => {
+    if (price) {
+      choosePlatform({
+        name: mainHeading,
+        price: price,
+      });
+    } else {
+      choosePlatform({
+        name: mainHeading,
+        platform: app,
+      });
+    }
+  };
   return (
     <div
-      style={{
-        border: "1px solid grey",
-        display: "flex",
-        width: "350px",
-        height: "50px",
-        borderRadius: "5px",
-        alignContent: "center",
-        // justifyContent: "flex-start",
-      }}
+      className={plat && plat.name === mainHeading ? "activeCard" : "card"}
+      onClick={() => handleClick()}
     >
       <div
         style={{
           height: "100%",
-          //   border: "1px solid red",
           paddingTop: "auto",
           width: "20%",
         }}
@@ -36,18 +52,18 @@ export const CampaignCard: React.FC<Props> = ({
       <div
         style={{
           height: "100%",
-          //   border: "1px solid red",
           width: "100%",
           display: "flex",
           flexDirection: "column",
           alignItems: "flex-start",
-          //   alignContent: "center",
           lineHeight: "1",
           justifyContent: "center",
         }}
       >
         <h4>{mainHeading}</h4>
-        <h5 style={{ color: "rgba(0, 0, 0, 0.3)" }}>{statement}</h5>
+        <h5 style={{ color: "rgba(0, 0, 0, 0.3)" }}>
+          {statement ? statement : `Rs: ${price}`}
+        </h5>
       </div>
     </div>
   );

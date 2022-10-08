@@ -1,10 +1,53 @@
 import { Button, message } from "antd";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { createCampaignApi } from "../../../apiUtil/campaignApi";
 import "../../../styles/common.scss";
 import { TimelineSteps } from "../timeline";
+import { UserSession, ZocketCacheInterface } from "../utils/interface";
+import { MiddleHeader } from "../utils/middleHeader";
 import { PreviewCard } from "../utils/previewCard";
 
 export const Preview = () => {
+  const navigate = useNavigate();
+
+  const [userSession, setUserSession] = useState<UserSession | string>("");
+  const [zocketData, setZocketData] = useState<ZocketCacheInterface>();
+
+  const createCampaign = async () => {
+    if (zocketData) {
+      const [data, error] = await createCampaignApi({
+        campaignName: zocketData.campaignName,
+        isOn: true,
+        startDate: zocketData.startDate,
+        endDate: zocketData.endDate,
+        clicks: 300,
+        budget: zocketData.budget,
+        location: zocketData.location,
+        platform: zocketData.platform,
+        createdOn: new Date(),
+        token: (userSession as UserSession).token,
+      });
+      if (data) {
+        navigate("/campaign");
+        message.success("Your campaign has started");
+      } else {
+        message.error(error);
+        console.log("error:", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const session: UserSession = JSON.parse(
+      localStorage.getItem("zocketSessionData") || "s"
+    );
+    setUserSession(session);
+    if (localStorage.getItem("zocketCache")) {
+      setZocketData(JSON.parse(localStorage.getItem("zocketCache") || "s"));
+    }
+  }, []);
+
   return (
     <div
       style={{
@@ -14,36 +57,22 @@ export const Preview = () => {
     >
       <TimelineSteps stepNo={4} />
       <div className="firstStep">
-        <div
-          style={{ display: "flex", paddingTop: "2px", alignItems: "center" }}
-        >
-          <h3 style={{ fontSize: "bold" }}>Ready to go</h3>
-          <h4 style={{ color: "rgba(0, 0, 0, 0.5)", marginLeft: "5px" }}>
-            (step 4 of 4)
-          </h4>
-        </div>
+        <MiddleHeader />
 
         <hr></hr>
         <div className="Box" style={{ height: "84%" }}>
           <PreviewCard />
         </div>
       </div>
-      <Link to="/product">
-        <Button
-          type="primary"
-          onClick={() => message.success("Campaign has started")}
-          size="middle"
-          className="buttonStyle"
-          style={{
-            marginTop: "10px",
-            width: "180px",
-            float: "right",
-            marginRight: "20px",
-          }}
-        >
-          Start Campaign
-        </Button>
-      </Link>
+
+      <Button
+        type="primary"
+        onClick={() => createCampaign()}
+        size="middle"
+        className="mainButton"
+      >
+        Start Campaign
+      </Button>
     </div>
   );
 };

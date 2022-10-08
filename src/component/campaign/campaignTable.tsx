@@ -88,7 +88,7 @@ const columns: ColumnsType<DataType> = [
 ];
 
 const data: DataType[] = [];
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 9; i++) {
   data.push({
     key: i,
     campaign: `Edward King${i}`,
@@ -141,8 +141,9 @@ export const CamapaignsTable = () => {
     <div
       style={{
         backgroundColor: "#fafafa",
+
         borderRadius: "10px",
-        margin: "20px",
+        margin: "2rem",
       }}
     >
       {/* <div style={{ marginBottom: 16 }}>
@@ -152,15 +153,20 @@ export const CamapaignsTable = () => {
       </div> */}
       <Filter />
       <Table
-        className="ant-table-thead "
-        style={{ padding: "10px", height: "50vh", overflowY: "auto" }}
+        // className="ant-table-thead "
+        style={{
+          padding: "1rem",
+          height: "50vh",
+          overflowY: "auto",
+          // overflowX: "auto",
+        }}
         size="small"
         rowSelection={rowSelection}
         columns={columns}
         dataSource={data}
         pagination={false}
         bordered={true}
-        // scroll={x:45}
+        scroll={{ x: 800 }}
       />
     </div>
   );

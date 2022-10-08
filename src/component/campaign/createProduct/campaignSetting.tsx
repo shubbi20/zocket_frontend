@@ -1,60 +1,102 @@
-import { Button } from "antd";
-import { Link } from "react-router-dom";
+import { Button, message } from "antd";
+import { useNavigate } from "react-router-dom";
 import { TimelineSteps } from "../timeline";
-import { Timeline } from "antd";
-import { WifiOutlined } from "@ant-design/icons";
 import "../../../styles/common.scss";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { chooseData } from "../utils/interface";
+import { SettingTimeLine } from "../utils/previewTimeline";
+import { MiddleHeader } from "../utils/middleHeader";
 
 export const CampaignSetting = () => {
+  const [fromDate, setFromDate] = useState<String>();
+  const [toDate, setToDate] = useState<String>();
+  const [text, setText] = useState("");
+  const [zocketData, setZocketData] = useState<chooseData>();
+  const navigate = useNavigate();
+
+  const submit = () => {
+    if (!fromDate || !toDate) {
+      message.warn("choose date correctly");
+    } else if (!text) {
+      message.warn("fill your location correctly");
+    } else if (text && text.trim().length < 3) {
+      message.warn("fill your location correctly");
+    } else {
+      if (zocketData) {
+        const data = {
+          campaignName: zocketData.name,
+          startDate: fromDate,
+          endDate: toDate,
+          location: text,
+          budget: zocketData.price,
+          platform: zocketData.platform,
+        };
+        localStorage.setItem("zocketCache", JSON.stringify(data));
+        navigate("/campaign/preview");
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (localStorage.getItem("zocketCache")) {
+      setZocketData(JSON.parse(localStorage.getItem("zocketCache") || "s"));
+    }
+  }, []);
+
+  const onOk = (value: any) => {
+    const [startDate, endDate] = value;
+    if (startDate && endDate) {
+      console.log("onOk: ", value);
+      setFromDate(moment(startDate).format("YYYY-MM-DD"));
+      setToDate(moment(endDate).format("YYYY-MM-DD"));
+    }
+  };
+
+  const changeText = (val: string) => {
+    setText(val);
+  };
+
   return (
     <div
       style={{
-        height: "65%",
+        height: "94.5%",
         width: "100%",
       }}
     >
       <TimelineSteps stepNo={3} />
-      <div className="firstStep" style={{ width: "50%" }}>
+
+      <div
+        style={{
+          display: "flex",
+          height: "369px",
+          justifyContent: "space-around",
+          alignItems: "center",
+        }}
+      >
         <div
-          style={{ display: "flex", paddingTop: "3px", alignItems: "center" }}
+          style={{
+            width: "60%",
+            height: "95%",
+            borderRadius: "10px",
+            backgroundColor: "#fafafa",
+          }}
         >
-          <h3 style={{ fontSize: "bold" }}>Campaign Settings </h3>
-          <h4 style={{ color: "rgba(0, 0, 0, 0.5)", marginLeft: "5px" }}>
-            (step 3 of 4)
-          </h4>
+          <MiddleHeader />
+          <hr></hr>
+          <SettingTimeLine changeText={changeText} onOk={onOk} text={text} />
         </div>
 
-        <hr></hr>
-        {/* timeline */}
-        <div style={{ backgroundColor: "pink" }}>
-          <Timeline style={{ margin: "0", padding: "0" }}>
-            <Timeline.Item
-              dot={<WifiOutlined />}
-              style={{
-                marginLeft: "0px",
-                paddingLeft: "0px",
-              }}
-              color="red"
-            >
-              Budget and Date Info
-            </Timeline.Item>
-            <Timeline.Item>
-              Network problems being solved 2015-09-01
-            </Timeline.Item>
-          </Timeline>
-        </div>
-      </div>
-      <Link to="/campaign/preview">
         <Button
           type="primary"
-          onClick={() => console.log("click")}
+          onClick={() => submit()}
           size="large"
-          className="buttonStyle"
-          style={{ marginTop: "20px", width: "180px", marginLeft: "80%" }}
+          className="mainButton"
+          style={{ marginTop: "280px" }}
         >
           Continue
         </Button>
-      </Link>
+      </div>
     </div>
   );
 };

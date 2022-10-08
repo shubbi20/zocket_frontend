@@ -45,6 +45,7 @@ function App() {
             <Route path="firstStep" element={<FirstStep />} />
             <Route path="product" element={<ChooseProduct />} />
             <Route path="setting" element={<CampaignSetting />} />
+            {/* <Route path="setting" element={<PreviewTimeLine />} /> */}
             <Route path="preview" element={<Preview />} />
           </Route>
         )}

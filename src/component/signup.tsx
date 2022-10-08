@@ -3,6 +3,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { signUpApi } from "../apiUtil/userApi";
+import Zocklogo from "../Logos/zoclogo";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const SignUp = () => {
       const userData = {
         email: data.email,
         token: data.token,
+        name: data.token,
       };
 
       localStorage.setItem("zocketSessionData", JSON.stringify(userData));
@@ -55,7 +57,9 @@ const SignUp = () => {
         width: "55%",
       }}
     >
-      <h1 style={{ fontSize: "24px", fontFamily: "monospace" }}>SignUp</h1>
+      <h1 style={{ fontSize: "24px", fontFamily: "monospace" }}>
+        <Zocklogo /> SignUp
+      </h1>
       <Form
         name="normal_login"
         className="login-form"

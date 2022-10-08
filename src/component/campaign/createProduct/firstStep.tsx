@@ -1,14 +1,22 @@
 import { TimelineSteps } from "../timeline";
 import { CampaignCard } from "../utils/campaignCard";
 import "../../../styles/common.scss";
-import { Button } from "antd";
-import { Link } from "react-router-dom";
+import { Button, message } from "antd";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { chooseData } from "../utils/interface";
+import { MiddleHeader } from "../utils/middleHeader";
 
 export interface CampaignPlatform {
   campaignName: string;
   platform: string;
   overview: string;
   logo: React.ReactNode;
+}
+
+export interface PlatformInterface {
+  campaignName: string;
+  platform: string;
 }
 
 const platform: CampaignPlatform[] = [
@@ -26,11 +34,11 @@ const platform: CampaignPlatform[] = [
       >
         <path
           d="M3.66667 0C1.64162 0 0 1.64162 0 3.66667V6.6C0 15.1052 6.89481 22 15.4 22H18.3333C20.3584 22 22 20.3584 22 18.3333V16.3064C22 15.4732 21.5292 14.7114 20.7839 14.3387L17.2405 12.567C16.043 11.9683 14.5929 12.569 14.1695 13.8391L13.7328 15.1492C13.5669 15.647 13.0562 15.9434 12.5417 15.8405C9.32108 15.1964 6.80364 12.6789 6.15952 9.45832C6.05661 8.94378 6.35295 8.43313 6.85076 8.26719L8.47675 7.7252C9.56734 7.36167 10.1942 6.21977 9.91536 5.10451L9.05584 1.66642C8.811 0.687054 7.93104 0 6.92153 0H3.66667Z"
-          fill="#0F6EFF"
+          fill="#8B8B8B"
         />
         <path
           d="M20.7481 0.214788L13.2 7.76291V4.4H11.7333V10.2667H17.6V8.8H14.2371L21.7852 1.25188L20.7481 0.214788Z"
-          fill="#0F6EFF"
+          fill="#8B8B8B"
         />
       </svg>
     ),
@@ -227,6 +235,22 @@ const platform: CampaignPlatform[] = [
 ];
 
 export const FirstStep = () => {
+  const [plat, setPlatform] = useState<chooseData>();
+
+  const choosePlatform = (platformChoosen: chooseData) => {
+    setPlatform(platformChoosen);
+  };
+
+  const navigate = useNavigate();
+  const submit = () => {
+    if (plat) {
+      localStorage.setItem("zocketCache", JSON.stringify(plat));
+      navigate("/campaign/product");
+    } else {
+      message.warn("First Choose");
+    }
+  };
+
   return (
     <div
       style={{
@@ -236,14 +260,7 @@ export const FirstStep = () => {
     >
       <TimelineSteps stepNo={1} />
       <div className="firstStep">
-        <div
-          style={{ display: "flex", paddingTop: "3px", alignItems: "center" }}
-        >
-          <h3 style={{ fontSize: "bold" }}>What you want to do?</h3>
-          <h4 style={{ color: "rgba(0, 0, 0, 0.5)", marginLeft: "5px" }}>
-            (step 1 of 4)
-          </h4>
-        </div>
+        <MiddleHeader />
 
         <hr></hr>
         <div className="Box">
@@ -253,27 +270,23 @@ export const FirstStep = () => {
                 childComp={ele.logo}
                 mainHeading={ele.campaignName}
                 statement={ele.overview}
+                app={ele.platform}
+                plat={plat}
+                choosePlatform={choosePlatform}
               />
             );
           })}
         </div>
       </div>
-      <Link to="/campaign/product">
-        <Button
-          type="primary"
-          onClick={() => console.log("click")}
-          size="large"
-          className="buttonStyle"
-          style={{
-            marginTop: "20px",
-            width: "180px",
-            float: "right",
-            marginRight: "20px",
-          }}
-        >
-          Continue
-        </Button>
-      </Link>
+
+      <Button
+        type="primary"
+        onClick={() => submit()}
+        size="large"
+        className="mainButton"
+      >
+        Continue
+      </Button>
     </div>
   );
 };

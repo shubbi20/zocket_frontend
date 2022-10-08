@@ -3,6 +3,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { loginApi } from "../apiUtil/userApi";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import Zocklogo from "../Logos/zoclogo";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ export const Login = () => {
       const userData = {
         email: data.email,
         token: data.token,
+        name: data.name,
       };
 
       localStorage.setItem("zocketSessionData", JSON.stringify(userData));
@@ -56,7 +58,9 @@ export const Login = () => {
         width: "55%",
       }}
     >
-      <h1 style={{ fontSize: "24px", fontFamily: "monospace" }}>Login</h1>
+      <h1 style={{ fontSize: "24px", fontFamily: "monospace" }}>
+        <Zocklogo /> Login
+      </h1>
       <Form
         name="normal_login"
         className="login-form"

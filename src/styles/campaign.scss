@@ -12,11 +12,23 @@
   width: 100%;
 }
 
-// .Box {
-//   height: 78%;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: flex-end;
-//   flex-wrap: wrap;
-//   // background-color: palevioletred;
-// }
+.card {
+  border: 1px solid grey;
+  display: flex;
+  width: 350px;
+  height: 50px;
+  border-radius: 5px;
+  align-content: center;
+  cursor: pointer;
+}
+
+.activeCard {
+  border: 2px solid hsla(216, 100%, 53%, 1);
+  display: flex;
+  width: 350px;
+  height: 50px;
+  border-radius: 5px;
+  align-content: center;
+  cursor: pointer;
+  background-color: rgb(245, 248, 253);
+}

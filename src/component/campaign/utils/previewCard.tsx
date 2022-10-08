@@ -1,4 +1,8 @@
-import { GlobalOutlined, LikeOutlined } from "@ant-design/icons";
+import {
+  FileImageTwoTone,
+  GlobalOutlined,
+  LikeOutlined,
+} from "@ant-design/icons";
 import { Button } from "antd";
 
 export const PreviewCard = () => {
@@ -7,8 +11,9 @@ export const PreviewCard = () => {
       style={{
         border: "2px solid hsla(216, 100%, 53%, 1)",
         width: "250px",
-        height: "100%",
+        maxHeight: "100%",
         borderRadius: "10px",
+        // backgroundColor: "red",
       }}
     >
       {/* 1st */}
@@ -75,29 +80,36 @@ export const PreviewCard = () => {
       <div
         style={{
           textAlign: "left",
-          margin: "5px 10px 0px 10px",
+          margin: "2px 10px 0px 10px",
           lineHeight: "1.2",
         }}
       >
-        <p>
+        <p style={{ fontSize: "0.8rem" }}>
           We are the best bakery around you. Please like my page to get updates
           on exciting offers and discounts
         </p>
       </div>
 
       {/* 3rd */}
-      <div
-        style={{
-          height: "30%",
-          backgroundImage:
-            "url(https://plus.unsplash.com/premium_photo-1661266841331-e2169199de65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGNha2V8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60)",
-          backgroundSize: "cover",
-          backgroundPositionY: "-10px",
-          backgroundRepeat: "no-repeat",
-          margin: "5px 10px 0px 10px",
-          borderRadius: "5px",
-        }}
-      ></div>
+      <div>
+        <img
+          style={{
+            height: "60px",
+            width: "90%",
+            // backgroundImage:
+            //   "url(https://plus.unsplash.com/premium_photo-1661266841331-e2169199de65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGNha2V8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60)",
+            objectFit: "cover",
+            // backgroundPositionY: "-10px",
+            // backgroundRepeat: "no-repeat",
+            // margin: "5px 10px 0px 10px",
+            // margin: "auto",
+            borderRadius: "5px",
+          }}
+          src={
+            "https://plus.unsplash.com/premium_photo-1661266841331-e2169199de65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGNha2V8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60"
+          }
+        />
+      </div>
 
       {/* 4th  */}
       <div

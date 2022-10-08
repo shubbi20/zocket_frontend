@@ -3,7 +3,7 @@
   align-items: center;
   width: 94%;
   justify-content: space-between;
-  //   border: 2px solid red;
+  flex-wrap: wrap;
   margin-top: 20px;
   margin-bottom: 15px;
 }
@@ -11,6 +11,8 @@
 .buttonStyle {
   background-color: hsla(216, 100%, 53%, 1);
   border-radius: 10px;
+  width: 15rem;
+  margin-right: 0.5rem;
 }
 
 .fontStyle {

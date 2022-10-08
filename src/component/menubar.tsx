@@ -35,20 +35,15 @@ const MenuBar = () => {
   return (
     <Menu
       theme="dark"
-      mode="inline"
+      mode="horizontal"
       items={items}
-      inlineCollapsed={true}
-      // onClick={({ key, keyPath, domEvent }) => {
-      //   if (key === "2") {
-      //     navigate("signup");
-      //   } else if (key === "3") {
-      //     navigate("campaign");
-      //   } else if (key === "4") {
-      //     navigate("logout");
-      //   } else {
-      //     navigate("login");
-      //   }
-      // }}
+      onClick={({ key, keyPath, domEvent }) => {
+        if (key === "2") {
+          navigate("signup");
+        } else {
+          navigate("login");
+        }
+      }}
     />
   );
 };
