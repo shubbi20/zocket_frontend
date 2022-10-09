@@ -6,13 +6,14 @@ import "../../../styles/common.scss";
 import { useEffect, useState } from "react";
 import { chooseData, ProductInterface, UserSession } from "../utils/interface";
 import { getProductApi } from "../../../apiUtil/apiUrl";
-import { Cake } from "../../../Logos/cake";
+import { Cake } from "../../../Logos/Cake/cake";
 import { MiddleHeader } from "../utils/middleHeader";
 
 export const ChooseProduct = () => {
   const [plat, setPlatform] = useState<chooseData>();
   const [zocketData, setZocketData] = useState<chooseData>();
   const [productData, setProductData] = useState<ProductInterface[]>([]);
+
   const navigate = useNavigate();
 
   const choosePlatform = (platformChoosen: chooseData) => {
@@ -63,7 +64,7 @@ export const ChooseProduct = () => {
     >
       <TimelineSteps stepNo={2} />
       <div className="firstStep">
-        <MiddleHeader />
+        <MiddleHeader heading="Choose the Product" step="(Step 2 of 4)" />
 
         <hr></hr>
         <div className="Box">

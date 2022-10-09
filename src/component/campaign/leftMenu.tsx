@@ -77,6 +77,7 @@ const LeftMenu = () => {
   return (
     <Menu
       theme="dark"
+      mode="inline"
       inlineCollapsed={true}
       style={{ height: "100%" }}
       items={items}

@@ -1,5 +1,5 @@
 import { PlusCircleOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import LeftMenu from "./leftMenu";
 import { TopMenu } from "./topMenu";
 import "../../styles/campaign.scss";
@@ -11,7 +11,6 @@ import { useEffect } from "react";
 export const Campaign = () => {
   const location = useLocation();
   useEffect(() => {
-    // console.log(location);
     if (localStorage.getItem("zocketCache")) {
       localStorage.removeItem("zocketCache");
     }

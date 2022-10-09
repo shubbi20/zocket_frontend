@@ -25,3 +25,18 @@ export interface ZocketCacheInterface {
   platform: string;
   budget: number;
 }
+
+export interface CampaignInterface {
+  _id: number;
+  campaignName: String;
+  isOn: boolean;
+  startDate: Date;
+  endDate: Date;
+  clicks: number;
+  budget: number;
+  location: string;
+  platform: string;
+  createdOn: Date;
+  createdBy: string;
+  tagValue: string;
+}

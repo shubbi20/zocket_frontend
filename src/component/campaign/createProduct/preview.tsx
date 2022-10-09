@@ -57,7 +57,7 @@ export const Preview = () => {
     >
       <TimelineSteps stepNo={4} />
       <div className="firstStep">
-        <MiddleHeader />
+        <MiddleHeader heading="Ready to go" step="(Step 4 of 4)" />
 
         <hr></hr>
         <div className="Box" style={{ height: "84%" }}>

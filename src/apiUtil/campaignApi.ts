@@ -65,9 +65,9 @@ export const createCampaignApi = async ({
   }
 };
 
-export const getCampaignApi = async (token: string) => {
+export const getCampaignApi = async (token: string, query?: string) => {
   try {
-    const url = apiUrl + "/campaign";
+    const url = apiUrl + `/campaign${query}`;
 
     const response = await fetch(url, {
       method: "GET",

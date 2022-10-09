@@ -260,7 +260,7 @@ export const FirstStep = () => {
     >
       <TimelineSteps stepNo={1} />
       <div className="firstStep">
-        <MiddleHeader />
+        <MiddleHeader heading="What you want to do?" step="(Step 1 of 4)" />
 
         <hr></hr>
         <div className="Box">

@@ -1,10 +1,21 @@
+import { useEffect, useState } from "react";
 import { BuyLogo } from "../../Logos/buyPlanLogo";
 import { GiftLogo } from "../../Logos/giftLogo";
 import { LastLogo } from "../../Logos/lastLogo";
 import { NotificationLogo } from "../../Logos/notificationLogo";
 import { UserLogo } from "../../Logos/userLogo";
+import { UserSession } from "./utils/interface";
 
 export const TopMenu = () => {
+  const [userSession, setUserSession] = useState<UserSession | string>("");
+  useEffect(() => {
+    if (localStorage.getItem("zocketSessionData")) {
+      const session: UserSession = JSON.parse(
+        localStorage.getItem("zocketSessionData") || "s"
+      );
+      setUserSession(session);
+    }
+  }, []);
   return (
     <div
       style={{
@@ -62,7 +73,7 @@ export const TopMenu = () => {
             marginLeft: "5px",
           }}
         >
-          Mukund cake shop
+          {`${(userSession as UserSession).name} cake shop`}
         </h4>
       </div>
 

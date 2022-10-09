@@ -82,7 +82,7 @@ export const CampaignSetting = () => {
             backgroundColor: "#fafafa",
           }}
         >
-          <MiddleHeader />
+          <MiddleHeader heading="Campaign Settings" step="(Step 3 of 4)" />
           <hr></hr>
           <SettingTimeLine changeText={changeText} onOk={onOk} text={text} />
         </div>

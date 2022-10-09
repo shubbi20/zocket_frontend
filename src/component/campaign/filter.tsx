@@ -1,20 +1,62 @@
 import {
   CaretDownOutlined,
-  DownOutlined,
   SearchOutlined,
+  TagsFilled,
 } from "@ant-design/icons";
 import { Button, Dropdown, Input, Menu, MenuProps, message, Space } from "antd";
-import Search from "antd/lib/input/Search";
+import { useState } from "react";
 import "../../styles/bottomSection.scss";
+import { UserSession } from "./utils/interface";
 
-export const Filter = () => {
-  const handleChnage = () => {
-    console.log("click");
-  };
+interface props {
+  createQuery: ({
+    platform,
+    tags,
+    day,
+  }: {
+    platform?: string;
+    tags?: string;
+    day?: string;
+  }) => Promise<void>;
+
+  toggle: (checked: boolean) => void;
+}
+
+export const Filter: React.FC<props> = ({ createQuery, toggle }) => {
+  const [platform, setPlatform] = useState<string>("All Platform");
+  const [status, setStatus] = useState<string>("All Status");
+  const [day, setDay] = useState<string>("Last 30 days");
 
   const handleMenuClick: MenuProps["onClick"] = (e: any) => {
-    // message.info("Click on menu item.");
-    console.log("click", e);
+    if (e.key === "-1") {
+      setPlatform("All Platform");
+      createQuery({ tags: status, day: day });
+    } else {
+      setPlatform(e.key);
+      createQuery({ platform: e.key, tags: status, day: day });
+    }
+    console.log("click", e.key);
+  };
+
+  const handleClick: MenuProps["onClick"] = (e: any) => {
+    if (e.key === "-1") {
+      setStatus("All Status");
+      createQuery({ platform: platform, day: day });
+    } else {
+      setStatus(e.key);
+      createQuery({ platform: platform, tags: e.key, day: day });
+    }
+  };
+
+  const handleDay: MenuProps["onClick"] = (e: any) => {
+    if (e.key === "-1") {
+      setDay("All");
+      createQuery({ platform: platform, tags: status });
+    } else {
+      setDay(e.key);
+      createQuery({ platform: platform, tags: status, day: e.key });
+    }
+    console.log("click", e.key);
   };
 
   const menu = (
@@ -23,22 +65,23 @@ export const Filter = () => {
       items={[
         {
           label: "Youtube",
-          key: "0",
+          key: "Youtube",
         },
         {
           label: "Facebook",
-          key: "1",
-        },
-        {
-          type: "divider",
+          key: "FB",
         },
         {
           label: "Google",
-          key: "2",
+          key: "Google",
         },
         {
           label: "Instagram",
-          key: "3",
+          key: "Instagram",
+        },
+        {
+          label: "All Platform",
+          key: "-1",
         },
       ]}
     />
@@ -46,22 +89,23 @@ export const Filter = () => {
 
   const StatusMenu = (
     <Menu
-      onClick={handleMenuClick}
+      onClick={handleClick}
       items={[
         {
-          label: "Live now",
-          key: "0",
+          label: "Live Now",
+          key: "Live-Now",
         },
         {
           label: "Paused",
-          key: "1",
-        },
-        {
-          type: "divider",
+          key: "Paused",
         },
         {
           label: "Exhausted",
-          key: "2",
+          key: "Exhausted",
+        },
+        {
+          label: "All Status",
+          key: "-1",
         },
       ]}
     />
@@ -69,22 +113,19 @@ export const Filter = () => {
 
   const dateMenu = (
     <Menu
-      onClick={handleMenuClick}
+      onClick={handleDay}
       items={[
         {
           label: "Last 30 days",
-          key: "0",
+          key: "Last 30 days",
         },
         {
           label: "Last 60 days",
-          key: "1",
-        },
-        {
-          type: "divider",
+          key: "Last 60 days",
         },
         {
           label: "All",
-          key: "2",
+          key: "-1",
         },
       ]}
     />
@@ -103,17 +144,18 @@ export const Filter = () => {
           disabled={true}
         />
       </div>
+
       <div style={{ justifyContent: "space-evenly", flexWrap: "wrap" }}>
         <span className="fontcolor">Platform:</span>{" "}
-        <Dropdown
-          overlay={menu}
-          trigger={["click"]}
-          className="dropdown"
-          autoFocus={false}
-        >
+        <Dropdown overlay={menu} trigger={["click"]} className="dropdown">
           <a onClick={(e) => e.preventDefault()}>
-            <Space style={{ color: "black" }}>
-              All Platform
+            <Space
+              style={{
+                color: "black",
+                width: "100px",
+              }}
+            >
+              {platform}
               <CaretDownOutlined />
             </Space>
           </a>
@@ -126,8 +168,8 @@ export const Filter = () => {
           autoFocus={false}
         >
           <a onClick={(e) => e.preventDefault()}>
-            <Space style={{ color: "black" }}>
-              All Status
+            <Space style={{ color: "black", width: "100px" }}>
+              {status}
               <CaretDownOutlined />
             </Space>
           </a>
@@ -139,8 +181,8 @@ export const Filter = () => {
           autoFocus={false}
         >
           <a onClick={(e) => e.preventDefault()}>
-            <Space style={{ color: "black" }}>
-              Last 30 days
+            <Space style={{ color: "black", width: "100px" }}>
+              {day}
               <CaretDownOutlined />
             </Space>
           </a>
